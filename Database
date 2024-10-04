@@ -1,0 +1,732 @@
+-- phpMyAdmin SQL Dump
+-- version 4.8.5
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1:3306
+-- Generation Time: Dec 15, 2019 at 01:22 PM
+-- Server version: 5.7.26
+-- PHP Version: 7.2.18
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `erecruit`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `actives`
+--
+
+DROP TABLE IF EXISTS `actives`;
+CREATE TABLE IF NOT EXISTS `actives` (
+  `AFM2` char(9) NOT NULL,
+  `sect_id` int(3) NOT NULL,
+  PRIMARY KEY (`AFM2`,`sect_id`),
+  KEY `SECT_IDA` (`sect_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `actives`
+--
+
+INSERT INTO `actives` (`AFM2`, `sect_id`) VALUES
+('023453344', 0),
+('023451232', 1),
+('123432211', 2),
+('18765549', 3),
+('561234561', 10),
+('23122345', 12),
+('123432211', 13),
+('023451232', 14),
+('23122345', 15);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `antikeim`
+--
+
+DROP TABLE IF EXISTS `antikeim`;
+CREATE TABLE IF NOT EXISTS `antikeim` (
+  `title` varchar(35) NOT NULL,
+  `descr` tinytext,
+  `belongs_to` varchar(35) DEFAULT NULL,
+  PRIMARY KEY (`title`),
+  KEY `ANTIKEIMENO` (`belongs_to`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `antikeim`
+--
+
+INSERT INTO `antikeim` (`title`, `descr`, `belongs_to`) VALUES
+('2D', 'Level two element, child of Graphics', 'Graphics'),
+('3D', 'Level two element, child of Graphics', 'Graphics'),
+('AI', 'Level one element, child of Computer Science', 'Computer Science'),
+('Algorithms', 'Level one element, child of Computer Science', 'Computer Science'),
+('Animation', 'Level two element, child of Graphics', 'Graphics'),
+('Complexity and Efficiency', 'Level two element, child of Algorithms', 'Algorithms'),
+('Computer Science', 'Root element, no more general antikeim', NULL),
+('Data structures', 'Level two element, child of Algorithms', 'Algorithms'),
+('Databases', 'Level one element, child of Computer Science', 'Computer Science'),
+('Device connectivity', 'Level two element, child of Networking', 'Networking'),
+('Graphics', 'Level one element, child of Computer Science', 'Computer Science'),
+('Information Retieval', 'Level three element, child of NLP', 'NLP'),
+('Language analysis', ' Level three element, child of NLP', 'NLP'),
+('Mobile Apps', 'Level two element, child of Programming', 'Programming'),
+('Network setup and maintainance', 'Level two element, child of Networking', 'Networking'),
+('Networking', 'Level one element, child of Computer Science', 'Computer Science'),
+('NLP', 'Level two element, child of AI', 'AI'),
+('NoSQL DBs', 'Level two element, child of Databases', 'Databases'),
+('Object-Oriented DBs', 'Level two element, child of Databases', 'Databases'),
+('Programming', 'Level one element, child of Computer Science', 'Computer Science'),
+('Relational DBs', 'Level two element, child of Databases', 'Databases'),
+('Robotics', 'Level two element, child of AI', 'AI'),
+('Web Programming', 'Level two element, child of Programming', 'Programming');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `applies`
+--
+
+DROP TABLE IF EXISTS `applies`;
+CREATE TABLE IF NOT EXISTS `applies` (
+  `cand_usrname` varchar(15) NOT NULL,
+  `job_id` int(4) NOT NULL,
+  PRIMARY KEY (`cand_usrname`,`job_id`),
+  KEY `APPL_JOB` (`job_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `applies`
+--
+
+INSERT INTO `applies` (`cand_usrname`, `job_id`) VALUES
+('abrown', 1),
+('cleogeo', 2),
+('lionarF', 2),
+('zazahir23', 2),
+('lionarF', 3),
+('zazahir23', 3),
+('liagourma', 4),
+('mnikol', 4),
+('lionarF', 5),
+('liagourma', 6),
+('lionarF', 6),
+('zazahir23', 6),
+('cleogeo', 7),
+('lionarF', 7),
+('zazahir23', 7),
+('zazahir23', 8),
+('abrown', 9),
+('lionarF', 9),
+('liagourma', 10),
+('abrown', 11),
+('mnikol', 11),
+('lionarF', 12),
+('zazahir23', 12);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `belongs_to`
+--
+
+DROP TABLE IF EXISTS `belongs_to`;
+CREATE TABLE IF NOT EXISTS `belongs_to` (
+  `title_2` varchar(35) NOT NULL,
+  PRIMARY KEY (`title_2`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `belongs_to`
+--
+
+INSERT INTO `belongs_to` (`title_2`) VALUES
+('2D'),
+('3D'),
+('AI'),
+('Algorithms'),
+('Animation'),
+('Complexity and Efficiency'),
+('Computer Science'),
+('Data structures'),
+('Databases'),
+('Device connectivity'),
+('Graphics'),
+('Information Retieval'),
+('Language analysis'),
+('Mobile Apps'),
+('Network setup and maintainance'),
+('Networking'),
+('NLP'),
+('NoSQL DBs'),
+('Object-Oriented DBs'),
+('Programming'),
+('Relational DBs'),
+('Robotics'),
+('Web Programming');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `belongs_to_2`
+--
+
+DROP TABLE IF EXISTS `belongs_to_2`;
+CREATE TABLE IF NOT EXISTS `belongs_to_2` (
+  `sect_id_2` int(3) NOT NULL,
+  PRIMARY KEY (`sect_id_2`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `belongs_to_2`
+--
+
+INSERT INTO `belongs_to_2` (`sect_id_2`) VALUES
+(0),
+(1),
+(2),
+(3),
+(10),
+(12),
+(13),
+(14),
+(15);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `candidate`
+--
+
+DROP TABLE IF EXISTS `candidate`;
+CREATE TABLE IF NOT EXISTS `candidate` (
+  `username` varchar(15) NOT NULL,
+  `bio` text NOT NULL,
+  `sistatikes` varchar(50) DEFAULT NULL,
+  `certificates` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `candidate`
+--
+
+INSERT INTO `candidate` (`username`, `bio`, `sistatikes`, `certificates`) VALUES
+('abrown', 'Andrew has a strong theoretical background in Algorithms and Data Stuctures and has worked for more than a decade in a software house that specializes in high performance data management. He is well skilled in high complexity schemes and heavy load memory management.', 'lettersscannedMcBr.pdf', 'degrees-cert.pdf'),
+('cleogeo', 'Cleomenis is a secodary education graduate who has long work experience in web programming technologies (has worked for than 25 years in the field). He has been also certified as a CISCO security expert (CCIE Security) and an IT project manager (PMI Project Management Professional and Project Management Professional).', 'RecLetters.pdf', 'certifALL.pdf'),
+('liagourma', 'Mrs Liagkoumi has a long experience in NLP and more specifically Information Retrieval and has also long research background on both areas. In addition she has worked on large coprus datasets and data visualization algorithms.', 'lettersLiagk.pdf', 'trainingLiagk.pdf'),
+('lionarF', 'Freddy is an experienced web programmer but has also worked on mobile apps development the last 5 years. He is a freelancer and can work from a distance. He can also manage 2d graphics and has long experience with DB scripting (My SQL, MariaDB, MS SQL Server and Oracle.', 'LionFr_letters.pdf', 'LionFR_cert.pdf'),
+('mnikol', 'Mr Nikolopoulos holds a Computer Science diploma and an MSc and has long work experience in AI applications as well as Robotics. He has also managed large R&D projects in these domains and has teaching and research experience as well. Please refer to his referral letters for more details.', 'referralLetNikol.pdf', 'degreesAndCertNikol.pdf'),
+('zazahir23', 'Mr Mobasher is a highly skilled web programmer who also has experience in 2d and 3d graphics generation as well as animation rendering. Moreover he has long experience with design, development and administration of large scale DBs, mostly relational.', 'Mobasher_rec.pdf', 'Mobasher-certif.pdf');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `degree`
+--
+
+DROP TABLE IF EXISTS `degree`;
+CREATE TABLE IF NOT EXISTS `degree` (
+  `titlos` varchar(50) NOT NULL,
+  `idryma` varchar(50) NOT NULL,
+  `bathmida` enum('LYKEIO','UNIV','MASTER') DEFAULT NULL,
+  PRIMARY KEY (`titlos`,`idryma`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `degree`
+--
+
+INSERT INTO `degree` (`titlos`, `idryma`, `bathmida`) VALUES
+('Advanced Rendering Techniques', 'Delft University of Technology', 'MASTER'),
+('Artificial Intelligence', ' Cambrigde University', 'MASTER'),
+('Big Data and Analytics', ' Imperial College London', 'MASTER'),
+('Big Data Structures and Algorithms', 'Technical University of Denmark', 'MASTER'),
+('Computer and Infromatics Eng.', ' Patras University', 'UNIV'),
+('Computer Science and Engineering', 'Delft University of Technology', 'UNIV'),
+('Computer Science Dipl.', 'Lancster University', 'UNIV'),
+('Computer Vision and Modelling', 'Princeton University', 'MASTER'),
+('Data Science Bachelor', 'Eindhoven University of Technology', 'UNIV'),
+('Electrical and Computer Eng.', 'Metsovio Polytexneio', 'UNIV'),
+('Lysium certificate', '2nd Lysium of Aigaleo', 'LYKEIO'),
+('NLP related high efficiency algorithms', 'Patras University', ''),
+('PDEng Data Science', 'Eindhoven University of Technology', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `etaireia`
+--
+
+DROP TABLE IF EXISTS `etaireia`;
+CREATE TABLE IF NOT EXISTS `etaireia` (
+  `AFM` char(9) NOT NULL,
+  `DOY` varchar(15) DEFAULT NULL,
+  `name` varchar(35) NOT NULL DEFAULT 'NO-NAME registered',
+  `tel` bigint(16) DEFAULT NULL,
+  `street` varchar(15) DEFAULT NULL,
+  `num` tinyint(4) DEFAULT NULL,
+  `city` varchar(15) DEFAULT NULL,
+  `country` varchar(15) DEFAULT NULL,
+  PRIMARY KEY (`AFM`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `etaireia`
+--
+
+INSERT INTO `etaireia` (`AFM`, `DOY`, `name`, `tel`, `street`, `num`, `city`, `country`) VALUES
+('023451232', 'A Patras', 'Typology Ltd', 2610231452, 'Korinthou', 56, 'Patra', 'Greece'),
+('023453344', 'C Patras', 'EXPENDITURE Ltd', 2610256321, 'Maizonos', 123, 'Patra', 'Greece'),
+('123432211', 'A Geraka', 'SoftSol A.E.', 2103452133, 'Ahepa', 44, 'Athina', 'Greece'),
+('18765549', 'C Peiraia', 'Unigram', 2103452672, 'Karaiskaki', 10, 'Peiraias', 'Greece'),
+('23122345', 'SF 1234 BG', 'SocialSc', 3200123451, 'General Sklevi', 35, 'Sofia', 'Bulgaria'),
+('561234561', 'GS 35321 L', 'InCodeWeTrust', 1242345612, 'Oxford', 12, 'London', 'United Kingdom');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `has_degree`
+--
+
+DROP TABLE IF EXISTS `has_degree`;
+CREATE TABLE IF NOT EXISTS `has_degree` (
+  `degr_title` varchar(50) NOT NULL,
+  `degr_idryma` varchar(40) NOT NULL,
+  `cand_usrname` varchar(15) NOT NULL,
+  `etos` year(4) DEFAULT NULL,
+  `grade` float(3,1) DEFAULT NULL,
+  PRIMARY KEY (`degr_title`,`degr_idryma`,`cand_usrname`),
+  KEY `HAS_CAND` (`cand_usrname`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `has_degree`
+--
+
+INSERT INTO `has_degree` (`degr_title`, `degr_idryma`, `cand_usrname`, `etos`, `grade`) VALUES
+('Artificial Intelligence', ' Cambrigde University', 'liagourma', 2008, 8.0),
+('Big Data and Analytics', ' Imperial College London', 'abrown', 2006, 8.0),
+('Big Data Structures and Algorithms', 'Technical University of Denmark', 'abrown', 2008, 8.2),
+('Computer and Infromatics Eng.', ' Patras University', 'liagourma', 2003, 8.6),
+('Computer Science and Engineering', 'Delft University of Technology', 'zazahir23', 2000, 8.2),
+('Computer Science Dipl.', 'Lancster University', 'mnikol', 2001, 8.4),
+('Computer Vision and Modelling', 'Princeton University', 'lionarF', 2001, 8.5),
+('Computer Vision and Modelling', 'Princeton University', 'mnikol', 2006, 7.4),
+('Data Science Bachelor', 'Eindhoven University of Technology', 'abrown', 2004, 9.2),
+('Electrical and Computer Eng.', 'Metsovio Polytexneio', 'lionarF', 1998, 7.6),
+('Lysium certificate', '2nd Lysium of Aigaleo', 'cleogeo', 1999, 19.2),
+('NLP related high efficiency algorithms', 'Patras University', 'liagourma', 2013, 9.0),
+('PDEng Data Science', 'Eindhoven University of Technology', 'zazahir23', 2006, 9.0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `interview`
+--
+
+DROP TABLE IF EXISTS `interview`;
+CREATE TABLE IF NOT EXISTS `interview` (
+  `job_id` int(4) NOT NULL,
+  `interview_id` int(4) NOT NULL AUTO_INCREMENT,
+  `int_recruiter` varchar(15) NOT NULL,
+  `candidate` varchar(15) NOT NULL,
+  `date_start` date NOT NULL,
+  `time_start` time DEFAULT NULL,
+  `duration` time DEFAULT NULL,
+  `comments` text,
+  `personality` enum('0','1','2','3','4','5','under_evaluation') DEFAULT NULL,
+  `education` enum('0','1','2','3','4','5','under_evaluation') DEFAULT NULL,
+  `experience` enum('0','1','2','3','4','5','under_evaluation') DEFAULT NULL,
+  PRIMARY KEY (`interview_id`),
+  KEY `FIND_JOB` (`job_id`),
+  KEY `FIND_RECR` (`int_recruiter`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `interview`
+--
+
+INSERT INTO `interview` (`job_id`, `interview_id`, `int_recruiter`, `candidate`, `date_start`, `time_start`, `duration`, `comments`, `personality`, `education`, `experience`) VALUES
+(4, 1, 'msmith', 'cleogeo', '2017-06-23', NULL, NULL, 'inadequate_education', '3', '0', '4'),
+(2, 2, 'varcon82', 'mnikol', '2017-06-20', NULL, NULL, 'no comments', '5', '3', '1'),
+(4, 3, 'bettyg', 'abrown', '2017-06-23', NULL, NULL, 'no comments', '1', '3', '3'),
+(12, 4, 'bettyg', 'cleogeo', '2017-05-23', NULL, NULL, 'no comments', 'under_evaluation', 'under_evaluation', 'under_evaluation'),
+(3, 5, 'bettyg', 'zack', '2017-06-28', NULL, NULL, 'no comments', 'under_evaluation', 'under_evaluation', '3'),
+(7, 6, 'msmith', 'liagourma', '2016-06-23', NULL, NULL, 'no comments', '2', '2', '2'),
+(6, 7, 'varcon82', 'lionarF', '2017-07-23', NULL, NULL, 'no comments', '1', '1', '1'),
+(12, 8, 'n_tri', 'cleogeo', '2017-12-23', NULL, NULL, 'failed_the_interview', '0', '3', '5');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job`
+--
+
+DROP TABLE IF EXISTS `job`;
+CREATE TABLE IF NOT EXISTS `job` (
+  `id` int(4) NOT NULL AUTO_INCREMENT,
+  `start_date` date NOT NULL,
+  `salary` float(6,1) DEFAULT NULL,
+  `position` varchar(40) DEFAULT NULL,
+  `edra` varchar(45) DEFAULT NULL,
+  `recruiter` varchar(15) NOT NULL,
+  `announce_date` date NOT NULL,
+  `submission_date` date NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `JOB_RECR` (`recruiter`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `job`
+--
+
+INSERT INTO `job` (`id`, `start_date`, `salary`, `position`, `edra`, `recruiter`, `announce_date`, `submission_date`) VALUES
+(1, '2019-01-01', 1800.0, 'data analyst', 'Patra, Greece', 'n_tri', '2018-07-13', '2018-12-20'),
+(2, '2019-02-01', 1450.0, 'web programmer', 'Patra, Greece', 'n_tri', '2018-07-13', '2019-01-10'),
+(3, '2019-02-01', 2100.0, 'mobile app developer', 'Patra, Greece', 'n_tri', '2018-10-24', '2018-01-12'),
+(4, '2018-12-25', 2700.0, 'NLP expert', 'Peiraias, Greece', 'msmith', '2018-10-10', '2020-11-10'),
+(5, '2019-03-01', 2100.0, 'Graphics designer', 'Peiraias, Greece', 'msmith', '2018-10-10', '2019-02-01'),
+(6, '0201-03-01', 2300.0, 'Visualization expert', 'Peiraias, Greece', 'Giankost', '2018-10-20', '2019-01-10'),
+(7, '2019-05-01', 1850.0, 'web and mobile app programmer', 'Athina, Greece', 'papad', '2018-11-20', '2018-04-12'),
+(8, '2019-05-01', 1600.0, 'graphics expert', 'Athina, Greece', 'bettyg', '2018-11-20', '2019-04-12'),
+(9, '2019-05-01', 1850.0, 'DB expert', 'Athina, Greece', 'papad', '2018-11-20', '2019-04-12'),
+(10, '2019-04-01', 2100.0, 'AI expert', 'Sofia, Bulgaria', 'pavkie', '2018-11-21', '2019-03-10'),
+(11, '2019-02-01', 2600.0, 'Algorithmic efficiency expert', 'Sofia, Bulgaria', 'pavkie', '2018-11-01', '2019-01-16'),
+(12, '2019-03-01', 2800.0, 'web and media programmer', 'Oxford, London', 'varcon82', '2018-11-01', '2019-01-03');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `languages`
+--
+
+DROP TABLE IF EXISTS `languages`;
+CREATE TABLE IF NOT EXISTS `languages` (
+  `candid` varchar(15) NOT NULL,
+  `lang` enum('EN','FR','SP','GR') NOT NULL,
+  PRIMARY KEY (`candid`,`lang`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `languages`
+--
+
+INSERT INTO `languages` (`candid`, `lang`) VALUES
+('abrown', ''),
+('cleogeo', ''),
+('liagourma', ''),
+('lionarF', ''),
+('mnikol', ''),
+('zazahir23', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `project`
+--
+
+DROP TABLE IF EXISTS `project`;
+CREATE TABLE IF NOT EXISTS `project` (
+  `candid` varchar(15) NOT NULL,
+  `num` tinyint(4) NOT NULL,
+  `descr` text,
+  `url` varchar(60) DEFAULT NULL,
+  PRIMARY KEY (`candid`,`num`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `project`
+--
+
+INSERT INTO `project` (`candid`, `num`, `descr`, `url`) VALUES
+('abrown', 1, 'Minimal examples of data structures and algorithms in Python', 'https://github.com/a_brown/algorithms'),
+('abrown', 2, 'Interactive Online Platform that Visualizes Algorithms from Code', 'https://github.com/a_brown/algorithm-visualizer'),
+('abrown', 3, 'Repository which contains links and resources on different topics of Computer Science', 'https://github.com/a_brown/AlgoWiki'),
+('liagourma', 1, 'WebGL2 powered geospatial visualization layers. offers an extensive catalog of pre-packaged visualization \"layers\", including ScatterplotLayer, ArcLayer, TextLayer, GeoJsonLayer, etc. The input to a layer is usually an array of JSON objects. Each layer offers highly-flexible API to customize how the data should be rendered.', 'https://github.com/liagk0R/deck.gl'),
+('liagourma', 2, 'Messy datasets? Missing values? missingno provides a small toolset of flexible and easy-to-use missing data visualizations and utilities that allows a quick visual summary of the completeness (or lack thereof) of the dataset.', 'https://github.com/liagk0R/missingno'),
+('liagourma', 3, 'Repository to track the progress in Natural Language Processing (NLP), including the datasets and the current state-of-the-art for the most common NLP tasks', 'https://github.com/liagk0R/NLP-progress'),
+('liagourma', 4, 'Supporting Rapid Prototyping with a Toolkit (incl. Datasets and Neural Network Layers)', 'https://github.com/liagk0R/PyTorch-NLP'),
+('lionarF', 1, 'HTML5 Mobile App UI templates created using Intel App Framework.', 'https://github.com/lionarGF/appframework-templates'),
+('lionarF', 2, 'Mobile Version of Travel sample App using Couchbase Lite 2.0.', 'https://github.com/lionarFG/mobile-travel-sample'),
+('lionarF', 3, 'Appium Demo App with clearly defined Page Object Pattern for React Native Mobile App. Test Language - Javascript.', 'https://github.com/lionarFG/Appium-Page-Object-Model-Demo'),
+('mnikol', 1, 'Essential Cheat Sheets for deep learning and machine learning researchers', 'https://github.com/nikolo0p/cheatsheets-ai'),
+('mnikol', 2, 'Python sample codes for robotics algorithms.', 'https://github.com/nikolo0p/PythonRobotics'),
+('zazahir23', 1, 'Go Graphics - 2D rendering in Go with a simple API.', 'https://github.com/mob@s/gg'),
+('zazahir23', 2, 'Draco is a library for compressing and decompressing 3D geometric meshes and point clouds. It is intended to improve the storage and transmission of 3D graphics.', 'https://github.com/mob@s/draco'),
+('zazahir23', 3, 'Data Discovery and Lineage for Big Data Ecosystem.', 'https://github.com/linkedin/WhereHows');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `record`
+--
+
+DROP TABLE IF EXISTS `record`;
+CREATE TABLE IF NOT EXISTS `record` (
+  `username2` varchar(15) NOT NULL,
+  `hour` time NOT NULL,
+  `date` date NOT NULL,
+  `implementation` enum('YES','NO') DEFAULT NULL,
+  `kind` enum('INSERT','UPDATE','DELETE') DEFAULT NULL,
+  `table_name` enum('candidate','etaireia','recruiter','user','job') NOT NULL,
+  PRIMARY KEY (`username2`,`table_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `recruiter`
+--
+
+DROP TABLE IF EXISTS `recruiter`;
+CREATE TABLE IF NOT EXISTS `recruiter` (
+  `username` varchar(15) NOT NULL,
+  `exp_years` tinyint(4) DEFAULT NULL,
+  `firm` varchar(9) DEFAULT NULL,
+  PRIMARY KEY (`username`),
+  KEY `RECR_ETAIREIA` (`firm`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `recruiter`
+--
+
+INSERT INTO `recruiter` (`username`, `exp_years`, `firm`) VALUES
+('bettyg', 6, '123432211'),
+('Giankost', 8, '023451232'),
+('msmith', 4, '18765549'),
+('n_tri', 8, '023451232'),
+('papad', 5, '123432211'),
+('pavkie', 10, '23122345'),
+('varcon82', 2, '561234561');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `requires`
+--
+
+DROP TABLE IF EXISTS `requires`;
+CREATE TABLE IF NOT EXISTS `requires` (
+  `job_id` int(4) NOT NULL,
+  `antikeim_title` varchar(35) NOT NULL,
+  PRIMARY KEY (`job_id`,`antikeim_title`),
+  KEY `REQ_ANTIK` (`antikeim_title`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `requires`
+--
+
+INSERT INTO `requires` (`job_id`, `antikeim_title`) VALUES
+(8, '2D'),
+(8, '3D'),
+(4, 'AI'),
+(10, 'AI'),
+(1, 'Algorithms'),
+(6, 'Algorithms'),
+(11, 'Algorithms'),
+(3, 'Animation'),
+(12, 'Animation'),
+(11, 'Complexity and Efficiency'),
+(1, 'Databases'),
+(9, 'Databases'),
+(5, 'Graphics'),
+(6, 'Graphics'),
+(3, 'Mobile Apps'),
+(7, 'Mobile Apps'),
+(12, 'Mobile Apps'),
+(4, 'NLP'),
+(9, 'NoSQL DBs'),
+(2, 'Programming'),
+(6, 'Programming'),
+(2, 'Web Programming'),
+(7, 'Web Programming'),
+(12, 'Web Programming');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sector`
+--
+
+DROP TABLE IF EXISTS `sector`;
+CREATE TABLE IF NOT EXISTS `sector` (
+  `sect_id` int(3) NOT NULL,
+  `sect_text` text,
+  `sect_title` varchar(30) NOT NULL,
+  `etaireia_afm` char(9) NOT NULL,
+  `sect_id_2` int(3) NOT NULL,
+  PRIMARY KEY (`sect_id`),
+  KEY `company_section` (`etaireia_afm`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sector`
+--
+
+INSERT INTO `sector` (`sect_id`, `sect_text`, `sect_title`, `etaireia_afm`, `sect_id_2`) VALUES
+(0, NULL, 'Computer Engineering1', '023451232', 20),
+(1, NULL, 'Networks', '123432211', 21),
+(2, NULL, 'Network SEcurity', '023451232', 22),
+(3, 'Subsection of Information Retrieval ', 'Segment.Analysis', '123432211', 23),
+(10, NULL, 'Computer Engineering2', '561234561', 24),
+(12, NULL, 'Hardware jobs', '561234561', 25),
+(13, NULL, 'Electronics', '561234561', 26),
+(14, NULL, 'VLSI design', '023451232', 27),
+(15, 'Assembly Microproccesors', 'Microproccesors', '18765549', 28);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE IF NOT EXISTS `user` (
+  `username` varchar(15) NOT NULL,
+  `password` varchar(10) NOT NULL,
+  `name` varchar(15) NOT NULL,
+  `surname` varchar(25) NOT NULL,
+  `reg_date` date DEFAULT NULL,
+  `email` varchar(40) DEFAULT NULL,
+  `user_type` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`username`, `password`, `name`, `surname`, `reg_date`, `email`, `user_type`) VALUES
+('abrown', 'w1lcoxon', 'Andrew', 'McBrown', '2018-01-27', 'andrewbr@yahoo.com', 'Candidate'),
+('admin', 'admin', 'admin', '', '2018-02-13', 'adm@gmail.com', 'Admin'),
+('bettyg', 'jUn38@', 'Betty', 'Georgiou', '2017-04-12', 'georb@softsol.gr', 'Recruiter'),
+('cleogeo', 'me', 'Cleomenis', 'Georgiadis', '2018-02-13', 'cleom17@gmail.com', 'Admin'),
+('Giankost', 'jUn38@', 'Giannis', 'Kostoglou', '2018-02-23', 'kostog@typology.gr', 'Candidate'),
+('liagourma', 'sionpass', 'Maria', 'Liagkoumi', '2018-05-22', 'mliagkr@gmail.com', 'Candidate'),
+('lionarF', 'erg2378', 'Freddy', 'Lionar', '2018-10-07', 'Lionarfre@ezra.co.uk', 'Candidate'),
+('mnikol', 'm@n0lis', 'Manolis', 'Nikopoloulos', '2017-11-08', 'nikolp@gmail.com', 'Recruiter'),
+('moscho', 'moscho', 'nikos', 'mosxopoulos', '2019-12-15', 'nmosxo@gmail.com', 'Candidate'),
+('msmith', 'we3wd', 'Mike', 'Smith', '2017-06-23', 'smithm@unigram.com', 'Admin'),
+('nick', '123', 'Nikos1', 'Gewrgiou', '2019-12-11', 'ngeo@info.gr', 'Candidate'),
+('n_tri', 'grt12wX', 'Nikol', 'Triantou', '2018-03-08', 'triantou@typology.gr', 'Candidate'),
+('papad', 'pdfr45t', 'Kostas', 'Papadatos', '2018-11-17', 'georb@softsol.gr', 'Recruiter'),
+('pavkie', 'julie79', 'Pavel', 'Skiev', '2017-03-25', 'pskiev@social-sc.bg', 'Candidate'),
+('varcon82', 'gotop@s$', 'Nick', 'Varcon', '2018-12-03', 'varcni@incode.com', 'Recruiter'),
+('zazahir23', 'zoolhger', 'Ahmet', 'Mobasher-Hirs', '2019-12-15', 'ahmetTech@yahoo.com', 'Candidate');
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `actives`
+--
+ALTER TABLE `actives`
+  ADD CONSTRAINT `AF` FOREIGN KEY (`AFM2`) REFERENCES `etaireia` (`AFM`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `SECT_IDA` FOREIGN KEY (`sect_id`) REFERENCES `sector` (`sect_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `antikeim`
+--
+ALTER TABLE `antikeim`
+  ADD CONSTRAINT `ANTIKEIMENO` FOREIGN KEY (`belongs_to`) REFERENCES `antikeim` (`title`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `applies`
+--
+ALTER TABLE `applies`
+  ADD CONSTRAINT `APPL_CAND` FOREIGN KEY (`cand_usrname`) REFERENCES `candidate` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `APPL_JOB` FOREIGN KEY (`job_id`) REFERENCES `job` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `belongs_to`
+--
+ALTER TABLE `belongs_to`
+  ADD CONSTRAINT `TITL2` FOREIGN KEY (`title_2`) REFERENCES `antikeim` (`title`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `belongs_to_2`
+--
+ALTER TABLE `belongs_to_2`
+  ADD CONSTRAINT `SECI2` FOREIGN KEY (`sect_id_2`) REFERENCES `sector` (`sect_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `candidate`
+--
+ALTER TABLE `candidate`
+  ADD CONSTRAINT `CAND_USER` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `has_degree`
+--
+ALTER TABLE `has_degree`
+  ADD CONSTRAINT `HAS_CAND` FOREIGN KEY (`cand_usrname`) REFERENCES `candidate` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `HAS_DEGR` FOREIGN KEY (`degr_title`,`degr_idryma`) REFERENCES `degree` (`titlos`, `idryma`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `interview`
+--
+ALTER TABLE `interview`
+  ADD CONSTRAINT `FIND_JOB` FOREIGN KEY (`job_id`) REFERENCES `job` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FIND_RECR` FOREIGN KEY (`int_recruiter`) REFERENCES `job` (`recruiter`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `job`
+--
+ALTER TABLE `job`
+  ADD CONSTRAINT `JOB_RECR` FOREIGN KEY (`recruiter`) REFERENCES `recruiter` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `languages`
+--
+ALTER TABLE `languages`
+  ADD CONSTRAINT `CAND_LANG` FOREIGN KEY (`candid`) REFERENCES `candidate` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `project`
+--
+ALTER TABLE `project`
+  ADD CONSTRAINT `PROJ_CAND` FOREIGN KEY (`candid`) REFERENCES `candidate` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `recruiter`
+--
+ALTER TABLE `recruiter`
+  ADD CONSTRAINT `RECR_ETAIREIA` FOREIGN KEY (`firm`) REFERENCES `etaireia` (`AFM`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `RECR_USER` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `requires`
+--
+ALTER TABLE `requires`
+  ADD CONSTRAINT `REQ_ANTIK` FOREIGN KEY (`antikeim_title`) REFERENCES `antikeim` (`title`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `REQ_JOB` FOREIGN KEY (`job_id`) REFERENCES `job` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `sector`
+--
+ALTER TABLE `sector`
+  ADD CONSTRAINT `company_section` FOREIGN KEY (`etaireia_afm`) REFERENCES `etaireia` (`AFM`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
