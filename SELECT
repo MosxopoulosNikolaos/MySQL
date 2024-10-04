@@ -1,0 +1,30 @@
+SELECT user.name, user.surname, etaireia.name as company, job.id as jid, job.salary, count(*) as num_of_candidates
+FROM user, applies, etaireia, job, recruiter
+WHERE job.recruiter = recruiter.username and applies.job_id = job.id and recruiter.username = user.username and etaireia.AFM = recruiter.firm and salary >= 1900 group by jid;
+
+SELECT has_degree.cand_usrname, candidate.certificates as certif, count(*) as num_of_certificates, avg(has_degree.grade) as mesos_oros_ptyxiwn
+FROM has_degree, candidate
+WHERE has_degree.cand_usrname = candidate.username group by has_degree.cand_usrname, certif having num_of_certificates > 1;
+
+SELECT applies.cand_usrname, count(*) as arithmos_ypovolwn, avg(job.salary) as mesos_oros_salary
+FROM applies, job
+WHERE applies.job_id = job.id group by applies.cand_usrname having mesos_oros_salary > 1800;
+
+SELECT etaireia.name, requires.antikeim_title, antikeim.descr
+FROM etaireia, recruiter, requires, job, antikeim
+WHERE etaireia.AFM = recruiter.firm and recruiter.username = job.recruiter and job.id = requires.job_id and antikeim.title = requires.antikeim_title and etaireia.city = 'Patra' and requires.antikeim_title like '%Program%';
+
+SELECT 'PLHTHOS','THESEWN','' union all
+SELECT job.recruiter,count(*) as plhthos,''
+FROM job
+GROUP BY recruiter union all
+	SELECT 'PLHTHOS','INTERVIEWS','' union all;
+
+SELECT int_recruiter,count(*),''
+FROM interview
+GROUP BY int_recruiter union all
+SELECT 'MESOS','OROS','MISTHWN/THESH' union all
+	SELECT int_recruiter,floor(avg(job.salary)),count(*) as plhthos_anarthsewn
+	FROM interview,job
+	WHERE job.id=interview.job_id
+	GROUP BY interview.int_recruiter HAVING plhthos_anarthsewn > 2;
