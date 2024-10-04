@@ -1,0 +1,30 @@
+use erecruit;
+drop procedure if exists eval_interview;
+delimiter $
+CREATE PROCEDURE eval_interview(in a int(4))
+  begin
+  declare empty_under_evaluation_interviews int(30) default 0;
+	declare num_of_interviews int(5);
+	
+	drop table if exists fail_interviews;
+	create temporary table fail_interviews select * from interview where (experience like '0' or education like '0' or personality like '0') and job_id=a;
+	
+	drop table if exists under_evaluation_interviews;
+	create temporary table under_evaluation_interviews select * from interview where (experience like 'under_evaluation' or education like 'under_evaluation' or personality like 'under_evaluation') and job_id=a;
+
+	drop table if exists evaluated_interviews;
+	create temporary table evaluated_interviews select * from interview where interview.candidate not in (select candidate from fail_interviews) and candidate not in (select candidate from under_evaluation_interviews) and job_id=a;
+
+	select empty_under_evaluation_interviews = count(*) from under_evaluation_interviews;
+	/* check if not evaluated interview(s) exist(s) */
+
+	if (exists (select 1 from under_evaluation_interviews)) then
+	  select 'SOME INTERVIEWS ARE UNDER EVALUATION';#check for non evaluated interviews
+	else
+		select /*job_id,*/candidate, sum((personality+education+experience)-3) as total, personality, education, experience from evaluated_interviews group by interview_id
+		union all select /*job_id,*/candidate, concat(FAIL FOR ','*', comments,'*') as total, personality, education, experience from fail_interviews group by interview_id union all
+		select candidate, count(*) as int_per_candidate,'number','of','interview(s)' from interview group by candidate;
+	end if;
+end$
+delimiter ;
+call eval_interview(4);
