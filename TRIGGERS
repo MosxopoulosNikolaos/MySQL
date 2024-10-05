@@ -1,1 +1,177 @@
+use erecruit;
+drop trigger if exists insert_etaireia_history;
+
+delimiter $$
+CREATE TRIGGER insert_etaireia_history
+AFTER INSERT ON 'etaireia' FOR EACH ROW /*etaireia trigger*/
+BEGIN
+  insert into record(username2, hour, date, implementation, kind, table_name)
+	values('me JAVA', current_time(), current_date(), 'YES', 'INSERT', 'etaireia');
+END $$
+delimiter ;
+
+drop trigger if exists delete_etaireia_history;
+  
+delimiter $$
+CREATE TRIGGER delete_etaireia_history AFTER DELETE ON 'etaireia' FOR EACH ROW
+BEGIN
+  insert into record(username2, hour, date, implementation, kind, table_name)
+  values('me JAVA', current_time(), current_date(), 'YES', 'DELETE', 'etaireia');
+END $$
+delimiter ;
+
+drop trigger if exists update_etaireia_history;
+
+delimiter $$
+CREATE TRIGGER update_etaireia_history BEFORE UPDATE ON 'etaireia' FOR EACH ROW
+BEGIN
+  IF((new.AFM is not null) or (new.DOY is not null) or (new.name is not null)) THEN
+    set new.AFM=old.AFM;
+		set new.DOY=old.DOY;
+		set new.name=old.name;
+		insert into record(username2, hour, date, implementation, kind, table_name)
+		values('user', current_time(), current_date(), 'NO', 'DELETE', 'etaireia');
+  ELSE
+    insert into record(username2, hour, date, implementation, kind, table_name)
+		values('ume JAVA', current_time(), current_date(), 'YES', 'DELETE', 'etaireia');
+	ELSE IF ;
+END $$
+delimiter ;
+
+delimiter $$
+CREATE TRIGGER insert_candidate_history AFTER INSERT ON 'candidate' FOR EACH ROW /* candidate trigger */
+BEGIN
+  insert into record(username2, hour, date, implementation, kind, table_name)
+	values (' me JAVA', current_time(), current_date(), 'YES', 'INSERT', 'etaireia');
+END $$
+delimiter ;
+
+drop trigger if exists delete_candidate_history;
+delimiter $$
+CREATE TRIGGER delete_candidate_history AFTER DELETE ON 'candidate' FOR EACH ROW
+BEGIN
+  insert into record(username2, hour, date, implementation, kind, table_name)
+	values ('me JAVA', current_time(), current_date(), 'YES', 'DELETE', 'etaireia');
+END $$
+delimiter ;
+
+drop trigger if exists update_candidate_history;
+delimiter $$
+CREATE TRIGGER update_candidate_history AFTER UPDATE ON 'candidate'  FOR EACH ROW
+BEGIN
+	insert into record(username2, hour, date, implementation, kind, table_name)
+	values ('ume JAVA', current_time(), current_date(), 'YES', 'DELETE', 'etaireia');
+END $$
+delimiter ;
+
+drop trigger if exists insert_recruiter_history; /*recruiter trigger*/
+delimiter $$
+CREATE TRIGGER insert_recruiter_history AFTER INSERT ON 'recruiter' FOR EACH ROW
+BEGIN
+	insert into record(username2, hour, date, implementation, kind, table_name)
+	values ('me JAVA', current_time(), current_date(), 'YES', 'INSERT', 'recruiter');
+END $$
+delimiter ;
+
+drop trigger if exists delete_recruiter_history;
+delimiter $$
+CREATE TRIGGER delete_recruiter_history BEFORE DELETE ON 'recruiter' FOR EACH ROW
+BEGIN
+	insert into record(username2, hour, date, implementation, kind, table_name)
+	values ('me JAVA', current_time(), current_date(), 'YES', 'DELETE', 'recruiter');
+END $$
+delimiter ;
+
+drop trigger if exists update_recruiter_history;
+delimiter $$
+CREATE TRIGGER update_recruiter_history AFTER UPDATE ON 'recruiter' FOR EACH ROW
+BEGIN
+	insert into record(username2, hour, date, implementation, kind, table_name)
+	values ('me JAVA', current_time(), current_date(), 'YES', 'UPDATE', 'recruiter');
+END $$
+delimiter ;
+
+drop trigger if exists insert_user_history; /*user trigger*/
+delimiter $$
+CREATE TRIGGER insert_user_history AFTER INSERT ON 'user' FOR EACH ROW
+BEGIN
+	insert into record(username2, hour, date, implementation, kind, table_name)
+	values ('me JAVA', current_time(), current_date(), 'YES', 'INSERT', 'user');
+END $$
+delimiter ;
+
+drop trigger if exists delete_user_history;
+delimiter $$
+CREATE TRIGGER delete_user_history AFTER DELETE ON 'user' FOR EACH ROW
+BEGIN
+	insert into record(username2, hour, date, implementation, kind, table_name)
+	values ('me JAVA', current_time(), current_date(), 'YES', 'DELETE', 'user');
+END $$
+delimiter ;
+
+drop trigger if exists update_user_history;
+delimiter $$
+CREATE TRIGGER update_user_history BEFORE UPDATE ON 'user' FOR EACH ROW
+BEGIN
+	insert into record(username2, hour, date, implementation, kind, table_name)
+	values ('me JAVA', current_time(), current_date(), 'YES', 'UPDATE', 'user');
+END IF ;
+END $$
+delimiter ;
+
+drop trigger if exists insert_job_history; /*job trigger*/
+delimiter $$
+CREATE TRIGGER insert_job_history AFTER INSERT ON 'job' FOR EACH ROW
+BEGIN
+	insert into record(username2, hour, date, implementation, kind, table_name)
+	values ('me JAVA', current_time(), current_date(), 'YES', 'INSERT', 'job');
+END $$
+delimiter ;
+
+drop trigger if exists delete_job_history;
+delimiter $$
+CREATE TRIGGER delete_job_history AFTER DELETE ON 'job' FOR EACH ROW
+BEGIN
+insert into record(username2, hour, date, implementation, kind, table_name)
+values ('me JAVA', current_time(), current_date(), 'YES', 'DELETE', 'job');
+END $$
+delimiter ;
+
+drop trigger if exists update_job_history;
+delimiter $$
+CREATE TRIGGER update_job_history BEFORE UPDATE ON 'job' FOR EACH ROW
+BEGIN
+	insert into record(username2, hour, date, implementation, kind, table_name)
+	values ('me JAVA', current_time(), current_date(), 'YES', 'UPDATE', 'job');
+END IF ;
+END $$
+delimiter ;
+
+
+
+
+
+/*---------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+
+
+
+
+drop trigger if exists prevent_application_from_deletion;
+delimiter $
+CREATE TRIGGER prevent_application_from_deletion BEFORE DELETE ON 'applies' FOR EACH ROW
+BEGIN
+  DECLARE sub_date date;
+	SELECT submission_date into sub_date
+	FROM job
+	WHERE id = old.job_id;
+	IF sub_date < CURDATE() THEN
+	SIGNAL sqlstate value '45000'
+	set MESSAGE_TEXT = '***APPLICATION CANNOT BE DELETED***';
+	END IF ;
+END $
+delimiter ;
+
+
+
 
